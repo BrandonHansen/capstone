@@ -42,17 +42,20 @@ class pitchGetter(object):
             input_device_index = 2,
             input = True)
         
+        f = open("sheet/test3", "w")
+        
         for note in notes:
             print "start "+note
             raw_input("press any key to go")
+            f.write(note+"\n")
             current = time.clock()
             running = []
             while time.clock() - current  < seconds:
                 rawsamps = stream.read(1024)
                 samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
                 note_in = analyse.musical_detect_pitch(samps)
-                
-                print "running", time.clock(), note_in
+                f.write(str(note_in)+"\n")
+                #print "running", time.clock(), note_in
                 if note_in != None:
                     running.append(note_in)
             avg = numpy.average(running)
@@ -60,4 +63,24 @@ class pitchGetter(object):
             self.set[note] = [avg, std]
         print "finished"
         
+    def pitchTester(self):
         
+        pyaud = pyaudio.PyAudio()
+        
+        stream = pyaud.open(
+            format = pyaudio.paInt16,
+            channels = 1,
+            rate = 44100,
+            input_device_index = 2,
+            input = True)
+        
+        while True:
+            rawsamps = stream.read(1024)
+            samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
+            note_in = analyse.musical_detect_pitch(samps)
+            if note_in != None:
+                print note_in
+'''        
+getter = pitchGetter({})
+getter.pitchTester()
+'''

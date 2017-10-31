@@ -13,7 +13,7 @@ comp.readTextForComposition("sheet/test1")
 
 pitches = pitchGetter.pitchGetter({})
 #pitches.loadPitch("sheet/test2")
-pitches.recordPitch(['A','C','D'])
+pitches.loadPitch("sheet/test2")#Pitch(['A','C','D'])
 
 
 print pitches.set
@@ -31,40 +31,44 @@ stream = pyaud.open(
 
 tempo = comp.getTempo()
 song = comp.getSong()
-score = []
+score = 0
+total = 0
 
-print "start"
+print "starting in"
 
-print "5"
-time.sleep(1)
-print "4"
-time.sleep(1)
-print "3"
-time.sleep(1)
-print "2"
-time.sleep(1)
-print "1"
-time.sleep(1)
+
+raw_input("press any key to go")
+
+n = 5
+while n > 0:
+    print n
+    n = n - 1
+    time.sleep(1)
+
 
 for beat in song:
     current = time.clock()
-    running = []
+    #running = []
+    note = 0
     print beat
-    while time.clock() - current  < tempo:
+    print time.clock()
+    while time.clock() - current < tempo:
         rawsamps = stream.read(1024)
         samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
         note_in = analyse.musical_detect_pitch(samps)
-        if note_in != None:
-            running.append(note_in)
-    record = numpy.average(running)
-    if pitches.set[beat][0]-pitches.set[beat][1] <= record <= pitches.set[beat][0]+pitches.set[beat][1]:
-        score.append(1)
-    else:
-        score.append(0)
+        if note_in != None and beat != None:
+            note = note_in
+        #running.append(note_in)
+        #record = numpy.average(running)
+        if pitches.set[beat][0]-pitches.set[beat][1] <= note <= pitches.set[beat][0]+pitches.set[beat][1]:
+            score = score + 1
+        total = total + 1
+            
 
 print "finished"
-
-print sum(score)/len(score)
+print score
+print total
+print score/total
 
 '''
 while True:
