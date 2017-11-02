@@ -15,6 +15,9 @@ pitches = pitchGetter.pitchGetter({})
 #pitches.loadPitch("sheet/test2")
 pitches.loadPitch("sheet/test2")#Pitch(['A','C','D'])
 
+#print pyaud.get_device_count, pyaud.get_device_info_by_index
+
+#exit(0)
 
 print pitches.set
 
@@ -26,7 +29,7 @@ stream = pyaud.open(
     format = pyaudio.paInt16,
     channels = 1,
     rate = 44100,
-    input_device_index = 2,
+    input_device_index = 1,
     input = True)
 
 tempo = comp.getTempo()
@@ -53,7 +56,7 @@ for beat in song:
     print beat
     print time.clock()
     while time.clock() - current < tempo:
-        rawsamps = stream.read(1024)
+        rawsamps = stream.read(1024, exception_on_overflow = False)
         samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
         note_in = analyse.musical_detect_pitch(samps)
         if note_in != None and beat != None:
