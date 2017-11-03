@@ -5,9 +5,15 @@ import analyse
 # Initialize PyAudio
 pyaud = pyaudio.PyAudio()
 
+index = 0
+
 for i in range(pyaud.get_device_count()):
   dev = pyaud.get_device_info_by_index(i)
-  print((i,dev['name'],dev['maxInputChannels']))
+  if dev['name'] == 'USB PnP Sound Device: Audio (hw:1,0)':
+     index = i
+     break
+  #print((i,dev['name'],dev['maxInputChannels']))
+
 
 # Open input stream, 16-bit mono at 44100 Hz
 # On my system, device 4 is a USB microphone
@@ -15,7 +21,7 @@ stream = pyaud.open(
     format = pyaudio.paInt16,
     channels = 1,
     rate = 44100,
-    input_device_index = 2,
+    input_device_index = 1,
     input = True,
     frames_per_buffer = 1024)
 
