@@ -1,0 +1,3 @@
+edit startup file
+
+sudo nano /etc/rc.local

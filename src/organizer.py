@@ -4,18 +4,20 @@ import analyse
 import time
 import sampler
 import initializer
+import analyzer
 import thread
+import sys
+import math
 
 class organizer:
 
-    sml = sampler.sampler()
     inl = initializer.initializer("songs.txt", "pitch.txt", "sheet")
     songs = {}
     pitch = {}
     #sample analyzer or samplyzer
 
     def __init__(self):
-        song = {'l':"test", 't':0.1, 'n':['A','B','C','D','E']}
+        #song = {'l':"test", 't':0.1, 'n':['A','B','C','D','E']}
         self.songs = self.inl.getSongs()
         self.pitch = self.inl.getPitches()
 
@@ -47,7 +49,7 @@ class organizer:
             elif inp == 'song':
                 self.printLibrary()
             elif elements[0] == 'play':
-                if elements[1] == None:
+                if len(elements) < 2:
                     title = raw_input("Which song> ")
                 else:
                     title = elements[1]
@@ -68,10 +70,13 @@ class organizer:
 
     def startPlaying(self, song):
         
+        
+        sml = sampler.sampler()
+        
         notes = song['n']
-        song_length = len(notes)
         tempo = song['t']
         
+        anl = analyzer.analyzer(notes, self.pitch)
         
         pyaud = pyaudio.PyAudio()
         
@@ -97,13 +102,24 @@ class organizer:
                 input = True,
                 frames_per_buffer = 1024)
 
-        listy = False
+        listy = []
         thread.start_new_thread(self.interrupter, (listy,))
 
 
+        count = 5
+        print "\n<starting in>"
+        while count > 0:
+            time.sleep(1)
+            sys.stdout.write(str(count)+" ")
+            sys.stdout.flush()
+            count -= 1
+        time.sleep(1)
+        print ''
+
         for note in notes:
-            print "play note, ", note
-            current = time.clock()
+            print "<play note "+str(note)+" >"
+            current = time.clock()            
+            tracker = int(tempo)
             while (time.clock() - current < tempo) and (not listy):
                 # Read raw microphone data
                 rawsamps = stream.read(1024, exception_on_overflow = False)
@@ -112,25 +128,39 @@ class organizer:
                 # Show the volume and pitch
                 volume = analyse.loudness(samps)
                 pitch = analyse.musical_detect_pitch(samps)
-                print volume, pitch
-                self.sml.appendSegment(pitch, volume)
-            self.sml.advanceSegment()
+                #print (volume)*-1, pitch
+                sml.appendSegment(pitch, (volume)*-1)
+                '''
+                if ((time.clock() - current) - tempo) < tracker:
+                    sys.stdout.write(str(tracker)+" ")
+                    sys.stdout.flush()
+                    tracker -= 1
+                '''
+            sys.stdout.flush()
+            found  = anl.analyzeSegment(sml.getCurrentSegment())
+            anl.addAnalysis(found)
+            print ''
+            print "<heard "+str(found)+" >"
+            sml.advanceSegment()
         
-        time.sleep(2)
-        print "results"
-        time.sleep(3)
-        print self.sml.getSegment(0)
+        if listy:
+            print "<song interrupted>"
+        else:
+            total = anl.scoreSong()
+            print "<total score is "+str(total)+"% >"
+        
+        #sml.resetSampler()
         
         
         stream.stop_stream()
         stream.close()
         pyaud.terminate()
+        return
 
 
-    def interrupter(listy):
+    def interrupter(self, listy):
         raw_input()
-        print "hit"
-        listy = True
+        listy.append(True)
 
-og = organizer()
-og.main()
+##og = organizer()
+##og.main()

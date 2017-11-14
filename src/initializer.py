@@ -24,7 +24,7 @@ class initializer:
         while (input != ""):
             if input != "\n":
                 elements = input.replace("\n", "").replace("\r", "").split(":")
-                self.pitches[elements[0]] = elements[1]
+                self.pitches[elements[0]] = {"p":float(elements[1]), "v":float(elements[2])}
             input = f.readline()
         
         f.close()
@@ -64,7 +64,7 @@ class initializer:
                     notes.append(input.replace("\n", "").replace("\r", ""))
                 input = f.readline()
                 
-            self.songs[label] = {'l':label, 't':tempo, 'n':notes}
+            self.songs[label] = {'l':label, 't':float(tempo), 'n':notes}
             
             f.close()
 

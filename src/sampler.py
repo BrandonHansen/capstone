@@ -8,6 +8,8 @@ class sampler:
     pointer = 0
     range = [[]]
 
+    #segment format is [ [{'p':pitch, 'v':volume},{'p':pitch, 'v':volume},...], [...], ...]
+
     def __init__(self):
         pass
         #self.pointer = -1
@@ -23,6 +25,9 @@ class sampler:
         except Exception as e:
             print "--> exception in sampler.getSegment, probably index out of bounds"
             print e
+
+    def getCurrentSegment(self):
+        return self.range[self.pointer]
 
     def getSegmentEntries(self, index, entry):
         segment = []
@@ -62,4 +67,6 @@ class sampler:
         else:
             print "--> pointer lower bound set, pointer equals ", self.pointer
 
-
+    def resetSampler(self):
+        self.pointer = 0
+        self.range = [[]]
