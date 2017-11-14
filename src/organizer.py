@@ -3,16 +3,21 @@ import pyaudio
 import analyse
 import time
 import sampler
+import initializer
+import thread
 
 class organizer:
 
     sml = sampler.sampler()
+    inl = initializer.initializer("songs.txt", "pitch.txt", "sheet")
     songs = {}
+    pitch = {}
     #sample analyzer or samplyzer
 
     def __init__(self):
         song = {'l':"test", 't':0.1, 'n':['A','B','C','D','E']}
-        self.songs[song['l']] = song
+        self.songs = self.inl.getSongs()
+        self.pitch = self.inl.getPitches()
 
     def printOptions(self):
         
@@ -58,7 +63,7 @@ class organizer:
             else:
                 print "<not an option (:-/ >"
 
-            display = ">>"
+            display = ">> "
 
 
     def startPlaying(self, song):
@@ -81,7 +86,8 @@ class organizer:
 
         if trip == False:
             print "--> microphone not detected"
-            #exit(0)
+            pyaud.terminate()
+            return
         
         stream = pyaud.open(
                 format = pyaudio.paInt16,
@@ -91,11 +97,14 @@ class organizer:
                 input = True,
                 frames_per_buffer = 1024)
 
+        listy = False
+        thread.start_new_thread(self.interrupter, (listy,))
+
 
         for note in notes:
             print "play note, ", note
             current = time.clock()
-            while time.clock() - current < tempo:
+            while (time.clock() - current < tempo) and (not listy):
                 # Read raw microphone data
                 rawsamps = stream.read(1024, exception_on_overflow = False)
                 # Convert raw data to NumPy array
@@ -103,10 +112,9 @@ class organizer:
                 # Show the volume and pitch
                 volume = analyse.loudness(samps)
                 pitch = analyse.musical_detect_pitch(samps)
-                #print volume, pitch
+                print volume, pitch
                 self.sml.appendSegment(pitch, volume)
             self.sml.advanceSegment()
-        
         
         time.sleep(2)
         print "results"
@@ -117,7 +125,12 @@ class organizer:
         stream.stop_stream()
         stream.close()
         pyaud.terminate()
-        
+
+
+    def interrupter(listy):
+        raw_input()
+        print "hit"
+        listy = True
 
 og = organizer()
 og.main()
