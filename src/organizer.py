@@ -46,22 +46,19 @@ class organizer:
             elements = inp.split(' ')
             if inp == 'help':
                 self.printOptions()
-            elif inp == 'song':
+            elif inp == 'song' or inp == 'songs':
                 self.printLibrary()
             elif elements[0] == 'play':
                 if len(elements) < 2:
                     title = raw_input("Which song> ")
                 else:
                     title = elements[1]
-                if self.songs[title] != None:
+                if self.songs.get(title) != None:
                     self.startPlaying(self.songs[title])
                 else:
                     print "<song dos not exist>"
             elif inp == 'exit' or inp == 'quit':
-                #stream.stop_stream()
-                #stream.close()
-                #pyaud.terminate()
-                pass
+                inp = 'exit'
             else:
                 print "<not an option (:-/ >"
 
@@ -108,19 +105,42 @@ class organizer:
 
         count = 5
         print "\n<starting in>"
-        while count > 0:
-            time.sleep(1)
-            sys.stdout.write(str(count)+" ")
-            sys.stdout.flush()
-            count -= 1
-        time.sleep(1)
+        current = time.clock()
+        tracker = time.clock()
+        sys.stdout.write(str(count)+" ")
+        sys.stdout.flush()  
+        while ((time.clock() - current) < 5) and (not listy):
+            #print (time.clock() - tracker)
+            if (time.clock() - tracker) > 1:    
+                tracker = time.clock()
+                count -= 1
+                sys.stdout.write(str(count)+" ")
+                sys.stdout.flush()  
         print ''
+
+        if listy:
+            print "<song interrupted>"
+            stream.stop_stream()
+            stream.close()
+            pyaud.terminate()
+            return
+    
 
         for note in notes:
             print "<play note "+str(note)+" >"
-            current = time.clock()            
-            tracker = int(tempo)
-            while (time.clock() - current < tempo) and (not listy):
+            current = time.clock()
+            tracker = time.clock()
+            count = int(tempo)
+            sys.stdout.write(str(count)+" ")
+            sys.stdout.flush()
+            while ((time.clock() - current)*10 < tempo) and (not listy):
+                
+                if (time.clock() - tracker)*10 > 1:    
+                    tracker = time.clock()
+                    count -= 1
+                    sys.stdout.write(str(count)+" ")
+                    sys.stdout.flush()                
+
                 # Read raw microphone data
                 rawsamps = stream.read(1024, exception_on_overflow = False)
                 # Convert raw data to NumPy array
@@ -130,17 +150,12 @@ class organizer:
                 pitch = analyse.musical_detect_pitch(samps)
                 #print (volume)*-1, pitch
                 sml.appendSegment(pitch, (volume)*-1)
-                '''
-                if ((time.clock() - current) - tempo) < tracker:
-                    sys.stdout.write(str(tracker)+" ")
-                    sys.stdout.flush()
-                    tracker -= 1
-                '''
+                
             sys.stdout.flush()
             found  = anl.analyzeSegment(sml.getCurrentSegment())
             anl.addAnalysis(found)
             print ''
-            print "<heard "+str(found)+" >"
+            print "<"+str(found)+" heard>"
             sml.advanceSegment()
         
         if listy:
