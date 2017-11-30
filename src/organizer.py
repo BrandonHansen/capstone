@@ -15,11 +15,16 @@ class organizer:
     songs = {}
     pitch = {}
     #sample analyzer or samplyzer
+    wfile = open("write.csv", 'a')
+    wfile.write('instance,'+str(time.time())+',X\n')
 
     def __init__(self):
         #song = {'l':"test", 't':0.1, 'n':['A','B','C','D','E']}
         self.songs = self.inl.getSongs()
         self.pitch = self.inl.getPitches()
+
+    def writeOut(self, type, data):
+        self.wfile.write(type+','+data+',X\n')
 
     def printOptions(self):
         
@@ -30,10 +35,15 @@ class organizer:
 
     def printLibrary(self):
         
+        list = "songs"
+        
         for song in self.songs:
             print "Name> "+song
+            list = list+','+song
+            
+        self.writeOut("songs", list)
 
-    def main(self):
+    def shell_interface(self):
 
 
         display = ">>Welcome to Hand Bell Helper, choose an option 'help'>> "
@@ -56,13 +66,40 @@ class organizer:
                 if self.songs.get(title) != None:
                     self.startPlaying(self.songs[title])
                 else:
-                    print "<song dos not exist>"
+                    print "<song does not exist>"
             elif inp == 'exit' or inp == 'quit':
                 inp = 'exit'
             else:
                 print "<not an option (:-/ >"
 
             display = ">> "
+
+    def cmd_interface(self, input1, input2):
+        
+        if input1 == '-song':
+            self.printLibrary()
+        elif input1 == '-reset':
+            self.wfile.close()
+            self.wfile = open("write.csv", 'w')
+            self.wfile.write("")
+        elif input1 == '-play':
+            if input2 != None:
+                if self.songs.get(input2) != None:
+                    self.startPlaying(self.songs[input2])
+                else:
+                    message = "<song dos not exist>"
+                    print message
+                    self.writeOut("message", message)
+            else:
+                message =  "<no song given>"
+                print message
+                self.writeOut("message", message)
+        else:
+            message = "<invalid command>"
+            print message
+            self.writeOut("message", message)
+            
+        self.wfile.close()
 
 
     def startPlaying(self, song):
@@ -87,7 +124,9 @@ class organizer:
                 break
 
         if trip == False:
-            print "--> microphone not detected"
+            message = "--> microphone not detected"
+            print message
+            self.writeOut("error", message)
             pyaud.terminate()
             return
         
@@ -104,22 +143,30 @@ class organizer:
 
 
         count = 5
-        print "\n<starting in>"
+        message = "<starting in>"
+        print '\n'+message
+        self.writeOut("message", message)
         current = time.clock()
         tracker = time.clock()
-        sys.stdout.write(str(count)+" ")
-        sys.stdout.flush()  
+        message = str(count)
+        sys.stdout.write(message+" ")
+        sys.stdout.flush()
+        self.writeOut("count", message)
         while ((time.clock() - current) < 5) and (not listy):
             #print (time.clock() - tracker)
             if (time.clock() - tracker) > 1:    
                 tracker = time.clock()
                 count -= 1
-                sys.stdout.write(str(count)+" ")
-                sys.stdout.flush()  
+                message = str(count)
+                sys.stdout.write(message+" ")
+                sys.stdout.flush()
+                self.writeOut("count", message)
         print ''
 
         if listy:
-            print "<song interrupted>"
+            message = "<song interrupted>"
+            print message
+            self.writeOut("message", message)
             stream.stop_stream()
             stream.close()
             pyaud.terminate()
@@ -128,6 +175,7 @@ class organizer:
 
         for note in notes:
             print "<play note "+str(note)+" >"
+            self.writeOut("note_play", str(note))
             current = time.clock()
             tracker = time.clock()
             count = int(tempo)
@@ -138,8 +186,10 @@ class organizer:
                 if (time.clock() - tracker)*10 > 1:    
                     tracker = time.clock()
                     count -= 1
-                    sys.stdout.write(str(count)+" ")
-                    sys.stdout.flush()                
+                    message = str(count)
+                    sys.stdout.write(message+" ")
+                    sys.stdout.flush()
+                    self.writeOut("count", message)           
 
                 # Read raw microphone data
                 rawsamps = stream.read(1024, exception_on_overflow = False)
@@ -154,15 +204,20 @@ class organizer:
             sys.stdout.flush()
             found  = anl.analyzeSegment(sml.getCurrentSegment())
             anl.addAnalysis(found)
+            currentScore = anl.scoreSong()
             print ''
-            print "<"+str(found)+" heard>"
+            print "<"+str(found)+" heard, current score "+str(currentScore)+"% >"
+            self.writeOut("note_return", str(found)+','+str(currentScore))
             sml.advanceSegment()
         
         if listy:
-            print "<song interrupted>"
+            message = "<song interrupted>"
+            print message
+            self.writeOut("message", message)
         else:
             total = anl.scoreSong()
             print "<total score is "+str(total)+"% >"
+            self.writeOut("score", str(total))
         
         #sml.resetSampler()
         

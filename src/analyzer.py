@@ -41,8 +41,8 @@ class analyzer:
         if sound == None:
             return None
         for pitch in self.pitches:
-            upper = self.pitches[pitch]['p'] + self.pitches[pitch]['p']
-            lower = self.pitches[pitch]['p'] - self.pitches[pitch]['p']
+            upper = self.pitches[pitch]['p'] + self.pitches[pitch]['v']
+            lower = self.pitches[pitch]['p'] - self.pitches[pitch]['v']
             if (sound >= lower) and (sound <= lower):
                 return pitch
         return None
@@ -68,3 +68,5 @@ class analyzer:
         final_score = int((score/total)*100)
         
         return final_score
+
+
