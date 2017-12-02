@@ -7,7 +7,7 @@ function useForm () {
 	// Send song to the program
 	// Prints to input.txt file, and the program will read from this file
 	<?php
-	$inputfile=fopen("./../../../../input.txt","w");
+	$inputfile=fopen("./../../input.txt","w");
 	fwrite($inputfile,"play,");
 	fwrite($inputfile,songName);
 	fclose($inputfile);
@@ -20,7 +20,7 @@ function useForm () {
 		var tableLen=$table.rows.length;
 		var noteNum=$table.rows[$table.rows.length-1].cells[0].childNodes[0].value;
 		<?php
-		$outputfile=fopen("./../../../../output.txt","r");
+		$outputfile=fopen("./../../output.txt","r");
 		var pieces="";
 		if ($outputfile) {
 			fseek($outputfile, -1, SEEK_END); 

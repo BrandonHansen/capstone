@@ -57,7 +57,7 @@ tr:nth-child(even) {
 }
 
 .practice {
-    background: url(static/pics/bg.jpg) no-repeat center center fixed;
+    background: url(static/bg.jpg) no-repeat center center fixed;
     opacity: 80%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
