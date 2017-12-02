@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Handbell Helper</title>
+    <!-- Required meta tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+
+    <!-- Bootstrap CSS -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="handbellHelper/templates/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="handbellHelper/templates/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  </head>
+  <body class="main">
+    <nav class="red darken-2" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Handbell Helper</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/edit.html">Edit Songs</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="/about.html">About</a></li>
+        <li><a href="edit.html">Edit Songs</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container box red darken-2">
+      <br><br>
+      <h1 class="header center white-text">Handbell Helper</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Improving practice, perfecting performance</h5>
+      </div>
+      <div class="row center">
+        <form action="/practice.html">
+          <label for="song">Pick a song: </label>
+          <select id="song" name="mySong">
+            <option value="Jingle_Bells">Jingle Bells</option>
+            <option value="Joy_World">Joy to the World</option>
+            <option value="Little_Star">Twinkle Twinkle Little Star</option>
+            <option value="London_Bridge">London Bridge</option>
+            <option value="Row_Boat">Row Your Boat</option>
+          </select>
+        
+          <input type="submit" class="btn-large waves-effect waves-light green" value="Play!">
+        </form>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+
+
+    <!-- Optional JavaScript -->
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  </body>
+</html>

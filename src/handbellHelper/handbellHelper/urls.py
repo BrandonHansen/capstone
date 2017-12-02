@@ -19,5 +19,6 @@ from handbellHelper.views import *
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
-    url(r'handbellHelper/$', app),
+    url(r'', index),
+    url(r'^practice', practice),
 ]
