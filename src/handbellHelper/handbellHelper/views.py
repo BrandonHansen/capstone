@@ -3,9 +3,16 @@ from django.template import RequestContext
 from django.http import HttpResponse
 
 
-def app(request):
+def index(request):
     
     f = open("./handbellHelper/templates/index.html", "r")
+    output = f.read()
+    f.close()
+    return HttpResponse(output)
+
+def practice(request):
+    
+    f = open("./handbellHelper/templates/practice.html", "r")
     output = f.read()
     f.close()
     return HttpResponse(output)
