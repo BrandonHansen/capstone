@@ -13,16 +13,52 @@ label {
 	color: white;
 }
 
+caption {
+    border: 2px solid #dddddd;
+    font-size: 150%;
+    padding: 8px;
+}
+
+td, th {
+    border: 2px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    text-align: center;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
 .box {
 	border-radius: 2%;
 }
 
-.song-input {
-	color: purple;
+.song-box {
+    border: 5px solid;
+    border-color: #d32f2f;
 }
 
 .main {
     background: url(file:///Users/mfabian1/Desktop/School/capstone/src/handbellHelper/handbellHelper/templates/pics/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.practice {
+    background: url(file:///Users/mfabian1/Desktop/School/capstone/src/handbellHelper/handbellHelper/templates/pics/bg.jpg) no-repeat center center fixed;
+    opacity: 80%;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

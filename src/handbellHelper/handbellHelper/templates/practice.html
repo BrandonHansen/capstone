@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Handbell Helper</title>
+    <title>Practice - Handbell Helper</title>
     <!-- Required meta tags -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
@@ -12,15 +12,17 @@
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   </head>
-  <body class="main">
+  <body class="practice">
     <nav class="red darken-2" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Handbell Helper</a>
       <ul class="right hide-on-med-and-down">
+        <li><a href="/index.html">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Edit Songs</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
+        <li><a href="/index.html">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Edit Songs</a></li>
       </ul>
@@ -29,28 +31,25 @@
   </nav>
 
   <div class="section no-pad-bot" id="index-banner">
-    <div class="container box red darken-2">
-      <br><br>
-      <h1 class="header center white-text">Handbell Helper</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">Improving practice, perfecting performance</h5>
-      </div>
-      <div class="row center">
-        <form action="file:///Users/mfabian1/Desktop/School/capstone/src/handbellHelper/handbellHelper/templates/practice.html">
-          <label for="song">Pick a song: </label>
-          <select id="song" name="mySong">
-            <option value="Jingle_Bells">Jingle Bells</option>
-            <option value="Joy_World">Joy to the World</option>
-            <option value="Little_Star">Twinkle Twinkle Little Star</option>
-            <option value="London_Bridge">London Bridge</option>
-            <option value="Row_Boat">Row Your Boat</option>
-          </select>
+    <div class="container song-box red darken-2">
+      <table id="song-table">
+        <caption>Song Feedback</caption>
+        <tr>
+          <th>Note</th>
+          <th>Pitch</th>
+          <th>Correct Pitch</th>
+          <th>Dynamic</th>
+          <th>Tempo</th>
+          <th>Cumulative Score</th>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <br><br><br><center>Waiting for input...<br><br><img src="file:///Users/mfabian1/Desktop/School/capstone/src/handbellHelper/handbellHelper/templates/pics/loading.gif" width="50" height="50"><center><br><br>
+            <!-- Spinner by https://loading.io/spinner/double-ring -->
+          </td>
+        </tr>
         
-          <input type="submit" class="btn-large waves-effect waves-light green" value="Play!">
-        </form>
-      </div>
-      <br><br>
-
+      </table>
     </div>
   </div>
 
