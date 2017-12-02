@@ -3,7 +3,7 @@
 <button name="button" type="submit" value="play">Play</button>
 <select name="select">
     {% for name in song_dicts %}
-        <option value={{ name }}>{{ name }}</option>
+        <option value="{{ name }}">{{ name }}</option>
     {% endfor %}
 </select>
 <button name="button" type="submit" value="stop">Stop</button>
