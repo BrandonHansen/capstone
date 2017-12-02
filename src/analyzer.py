@@ -29,12 +29,12 @@ class analyzer:
         if len(pitch_count) > 0:
             max_value = max(pitch_count, key=lambda i: pitch_count[i])
         else:
-            return None
+            return [None, 0]
         
         if pitch_count[max_value] == 0:
-            return None
+            return [None, 0]
                 
-        return max_value
+        return [max_value, pitch_count[max_value]]
         
         
     def judgeSound(self, sound):

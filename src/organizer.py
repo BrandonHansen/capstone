@@ -15,8 +15,8 @@ class organizer:
     songs = {}
     pitch = {}
     #sample analyzer or samplyzer
-    wfile = open("write.csv", 'a')
-    wfile.write('instance,'+str(time.time())+',X\n')
+    wfile = open("output.txt", 'a')
+    #wfile.write('instance,'+str(time.time())+',X\n')
 
     def __init__(self):
         #song = {'l':"test", 't':0.1, 'n':['A','B','C','D','E']}
@@ -24,7 +24,7 @@ class organizer:
         self.pitch = self.inl.getPitches()
 
     def writeOut(self, type, data):
-        self.wfile.write(type+','+data+',X\n')
+        self.wfile.write(type+','+data+'\n')
 
     def printOptions(self):
         
@@ -41,7 +41,7 @@ class organizer:
             print "Name> "+song
             list = list+','+song
             
-        self.writeOut("songs", list)
+        #self.writeOut("songs", list)
 
     def shell_interface(self):
 
@@ -91,15 +91,15 @@ class organizer:
                 else:
                     message = "<song dos not exist>"
                     print message
-                    self.writeOut("message", message)
+                    #self.writeOut("message", message)
             else:
                 message =  "<no song given>"
                 print message
-                self.writeOut("message", message)
+                #self.writeOut("message", message)
         else:
             message = "<invalid command>"
             print message
-            self.writeOut("message", message)
+            #self.writeOut("message", message)
             
 
 
@@ -127,7 +127,7 @@ class organizer:
         if trip == False:
             message = "--> microphone not detected"
             print message
-            self.writeOut("error", message)
+            #self.writeOut("error", message)
             pyaud.terminate()
             return
         
@@ -146,13 +146,13 @@ class organizer:
         count = 5
         message = "<starting in>"
         print '\n'+message
-        self.writeOut("message", message)
+        #self.writeOut("message", message)
         current = time.clock()
         tracker = time.clock()
         message = str(count)
         sys.stdout.write(message+" ")
         sys.stdout.flush()
-        self.writeOut("count", message)
+        #self.writeOut("count", message)
         while ((time.clock() - current) < 5) and (not listy):
             #print (time.clock() - tracker)
             if (time.clock() - tracker) > 1:    
@@ -161,22 +161,24 @@ class organizer:
                 message = str(count)
                 sys.stdout.write(message+" ")
                 sys.stdout.flush()
-                self.writeOut("count", message)
+                #self.writeOut("count", message)
         print ''
 
         if listy:
             message = "<song interrupted>"
             print message
-            self.writeOut("message", message)
+            #self.writeOut("message", message)
             stream.stop_stream()
             stream.close()
             pyaud.terminate()
             return
     
 
+        counter = 1
+
         for note in notes:
             print "<play note "+str(note)+" >"
-            self.writeOut("note_play", str(note))
+            #self.writeOut("note_play", str(note))
             current = time.clock()
             tracker = time.clock()
             count = int(tempo)
@@ -190,7 +192,7 @@ class organizer:
                     message = str(count)
                     sys.stdout.write(message+" ")
                     sys.stdout.flush()
-                    self.writeOut("count", message)           
+                    #self.writeOut("count", message)           
 
                 # Read raw microphone data
                 rawsamps = stream.read(1024, exception_on_overflow = False)
@@ -203,22 +205,24 @@ class organizer:
                 sml.appendSegment(pitch, (volume)*-1)
                 
             sys.stdout.flush()
-            found  = anl.analyzeSegment(sml.getCurrentSegment())
+            dub  = anl.analyzeSegment(sml.getCurrentSegment())
+            found = dub[0]
+            dynamic = int(dub[1])
             anl.addAnalysis(found)
             currentScore = anl.scoreSong()
             print ''
             print "<"+str(found)+" heard, current score "+str(currentScore)+"% >"
-            self.writeOut("note_return", str(found)+','+str(currentScore))
+            self.writeOut(str(count), str(note)+','+str(found)+','+str(dynamic)+','+str(tempo)+'bps'+','+str(currentScore))
             sml.advanceSegment()
         
         if listy:
             message = "<song interrupted>"
             print message
-            self.writeOut("message", message)
+            #self.writeOut("message", message)
         else:
             total = anl.scoreSong()
             print "<total score is "+str(total)+"% >"
-            self.writeOut("score", str(total))
+            #self.writeOut("score", str(total))
         
         #sml.resetSampler()
         
