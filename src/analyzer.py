@@ -43,7 +43,7 @@ class analyzer:
         for pitch in self.pitches:
             upper = self.pitches[pitch]['p'] + self.pitches[pitch]['v']
             lower = self.pitches[pitch]['p'] - self.pitches[pitch]['v']
-            if (sound >= lower) and (sound <= lower):
+            if (sound >= lower) and (sound <= upper):
                 return pitch
         return None
     
