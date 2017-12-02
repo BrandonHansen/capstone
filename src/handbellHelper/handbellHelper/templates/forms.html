@@ -1,0 +1,11 @@
+<form method="POST" action="/handbellHelper/">
+{% csrf_token %}
+<button name="button" type="submit" value="play">Play</button>
+<select name="select">
+    {% for name in song_dicts %}
+        <option value={{ name }}>{{ name }}</option>
+    {% endfor %}
+</select>
+<button name="button" type="submit" value="stop">Stop</button>
+<text>{{ bunk }}</text>
+</form>

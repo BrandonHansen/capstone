@@ -11,7 +11,7 @@ import math
 
 class organizer:
 
-    inl = initializer.initializer("songs.txt", "pitch.txt", "sheet")
+    inl = initializer.initializer("songs.txt", "pitch.txt", "/home/pi/capstone/src/sheet")
     songs = {}
     pitch = {}
     #sample analyzer or samplyzer
@@ -85,7 +85,9 @@ class organizer:
         elif input1 == '-play':
             if input2 != None:
                 if self.songs.get(input2) != None:
-                    self.startPlaying(self.songs[input2])
+                    self.startPlaying(self.songs[input2])                    
+                    self.wfile.close()
+                    print 'done'
                 else:
                     message = "<song dos not exist>"
                     print message
@@ -99,7 +101,6 @@ class organizer:
             print message
             self.writeOut("message", message)
             
-        self.wfile.close()
 
 
     def startPlaying(self, song):
