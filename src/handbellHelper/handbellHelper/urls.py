@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from handbellHelper.views import app
+from handbellHelper.views import *
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
