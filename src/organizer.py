@@ -8,12 +8,14 @@ import analyzer
 import thread
 import sys
 import math
+import os
 
 class organizer:
 
     inl = initializer.initializer("songs.txt", "pitch.txt", "/home/pi/capstone/src/sheet")
     songs = {}
     pitch = {}
+    var = ''
     #sample analyzer or samplyzer
     wfile = open("output.txt", 'a')
     #wfile.write('instance,'+str(time.time())+',X\n')
@@ -74,7 +76,9 @@ class organizer:
 
             display = ">> "
 
-    def cmd_interface(self, input1, input2):
+    def cmd_interface(self, input1, input2, input_var):
+        
+        self.var = input_var
         
         if input1 == '-song':
             self.printLibrary()
@@ -184,7 +188,7 @@ class organizer:
             count = int(tempo)
             sys.stdout.write(str(count)+" ")
             sys.stdout.flush()
-            while ((time.clock() - current)*10 < tempo) and (not listy):
+            while ((time.clock() - current)*10 < tempo) and (not listy) and (os.getenv(self.var, 'CONT') != 'STOP'):
                 
                 if (time.clock() - tracker)*10 > 1:    
                     tracker = time.clock()
@@ -212,9 +216,16 @@ class organizer:
             currentScore = anl.scoreSong()
             print ''
             print "<"+str(found)+" heard, current score "+str(currentScore)+"% >"
-            self.writeOut(str(count), str(note)+','+str(found)+','+str(dynamic)+','+str(tempo)+'bps'+','+str(currentScore))
+            self.writeOut(str(counter), str(note)+','+str(found)+','+str(dynamic)+','+str(tempo)+'bps'+','+str(currentScore))
             sml.advanceSegment()
+            counter += 1
         
+        '''
+        if os.getenv(self.var, 'CONT') == 'STOP':
+            message = "<song interrupted>"
+            print message
+            os.environ[self.var] = ''
+        '''
         if listy:
             message = "<song interrupted>"
             print message

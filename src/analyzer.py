@@ -24,6 +24,8 @@ class analyzer:
         for entry in segment:
             pitch = self.judgeSound(entry['p'])
             if pitch != None:
+                if pitch_count[pitch] == None:
+                    pitch_count[pitch] = 0
                 pitch_count[pitch] += entry['v']
         
         if len(pitch_count) > 0:

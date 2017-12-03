@@ -8,4 +8,4 @@ else:
     input2 = None
 
 og = organizer.organizer()
-og.cmd_interface(input1, input2)
+og.cmd_interface(input1, input2, 'NONE')
