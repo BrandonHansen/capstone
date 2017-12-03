@@ -16,3 +16,7 @@ def practice(request):
     output = f.read()
     f.close()
     return HttpResponse(output)
+
+def server(request):
+	return HttpResponse("Hello!")
+
