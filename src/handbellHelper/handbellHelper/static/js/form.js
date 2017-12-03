@@ -1,17 +1,30 @@
 "use strict";
 
-function useForm () {
+console.log("OUTSIDE");
+
+function getParameterByName(name,url) {
+	if (!url) url = window.location.href;
+	name= name.replace(/[/[/]]/g,"\\$&");
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		results = regex.exec(url);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function useForm() {
+	console.log("INSIDE");
 	// Read data from the form
 	var songName=getParameterByName('mySong');
 
 	// Send song to the program
 	// Prints to input.txt file, and the program will read from this file
-	<?php
+	//<?php
 	$inputfile=fopen("./../../input.txt","w");
 	fwrite($inputfile,"play,");
 	fwrite($inputfile,songName);
 	fclose($inputfile);
-	?>
+	//?>
 
 	// Show results on the screen
 	var $table=document.getElementById('song-table');
@@ -19,7 +32,7 @@ function useForm () {
 	function myTimer() {
 		var tableLen=$table.rows.length;
 		var noteNum=$table.rows[$table.rows.length-1].cells[0].childNodes[0].value;
-		<?php
+		//<?php
 		$outputfile=fopen("./../../output.txt","r");
 		var pieces="";
 		if ($outputfile) {
@@ -34,7 +47,7 @@ function useForm () {
 			fclose($outputfile);
 			pieces=$LastLine.split(",");
 		}
-		?>
+		//?>
 		if ((pieces != "") && (pieces[0] == "f")) {
 			clearInterval(myInterval);
 		}
