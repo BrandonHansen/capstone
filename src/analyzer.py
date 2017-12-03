@@ -54,7 +54,7 @@ class analyzer:
         
     def scoreSong(self):
         
-        score = 0
+        score = 0.0
         
         elength = len(self.expected)
         alength = len(self.actual)
@@ -64,9 +64,9 @@ class analyzer:
         count = 0
         while count < total:
             if self.expected[count] == self.actual[count]:
-                score += 1
+                score += 1.0
             count += 1
-            
+        
         final_score = int((score/total)*100)
         
         return final_score
