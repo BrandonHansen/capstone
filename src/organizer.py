@@ -30,11 +30,11 @@ class organizer:
         self.pitch = self.inl.getPitches()
 
     def writeOut(self, type, data):
-        data = {'api_dev_key':API_KEY,
+        myData = {'api_dev_key':API_KEY,
         'api_option':'paste',
         'api_paste_code': data,
         'api_paste_format':'python'}
-        r = requests.post(url = API_ENDPOINT, data = data)
+        r = requests.post(url = API_ENDPOINT, data = myData)
         self.wfile.write(type+','+data+'\n')
 
     def printOptions(self):
