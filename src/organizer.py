@@ -11,6 +11,9 @@ import math
 import os
 import requests
 
+API_ENDPOINT = "http://pastebin.com/api/api_post.php"
+API_KEY = "1aedbf403bd25bde91c54adde9f81322"
+
 class organizer:
 
     inl = initializer.initializer("songs.txt", "pitch.txt", "/home/pi/capstone/src/sheet")
@@ -27,7 +30,11 @@ class organizer:
         self.pitch = self.inl.getPitches()
 
     def writeOut(self, type, data):
-        r = requests.post('localhost:5000/data', data = {'key' : data})
+        data = {'api_dev_key':API_KEY,
+        'api_option':'paste',
+        'api_paste_code': data,
+        'api_paste_format':'python'}
+        r = requests.post(url = API_ENDPOINT, data = data)
         self.wfile.write(type+','+data+'\n')
 
     def printOptions(self):
