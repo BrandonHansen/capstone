@@ -36,7 +36,8 @@ class organizer:
         'api_paste_format':'python'}
         r = requests.post(url = API_ENDPOINT, data = myData)
         self.wfile.write(type+','+data+'\n')
-
+        print r.text
+    
     def printOptions(self):
         
         print "help > display this help list"
