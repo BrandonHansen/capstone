@@ -27,7 +27,7 @@ class organizer:
         self.pitch = self.inl.getPitches()
 
     def writeOut(self, type, data):
-        r = requests.post('http://http://handbellhelper.cse.nd.edu/', data = {'key' : data})
+        r = requests.post('localhost:5000/data', data = {'key' : data})
         self.wfile.write(type+','+data+'\n')
 
     def printOptions(self):
