@@ -9,6 +9,7 @@ import thread
 import sys
 import math
 import os
+import requests
 
 class organizer:
 
@@ -26,6 +27,7 @@ class organizer:
         self.pitch = self.inl.getPitches()
 
     def writeOut(self, type, data):
+        r = requests.post('http://http://handbellhelper.cse.nd.edu/', data = {'key' : data})
         self.wfile.write(type+','+data+'\n')
 
     def printOptions(self):
