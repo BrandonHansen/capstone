@@ -10,6 +10,7 @@ import sys
 import math
 import os
 import requests
+from matplotlib.cbook import Null
 
 class organizer:
 
@@ -26,11 +27,11 @@ class organizer:
         self.songs = self.inl.getSongs()
         self.pitch = self.inl.getPitches()
 
-    def writeOut(self, type, myData):
-        finalData = str(type) + "," + str(myData)
+    def writeOut(self, data_type, myData):
+        finalData = str(data_type) + "," + str(myData)
         headers = {"Content-Type": "application/json"}
         r = requests.put(url='http://127.0.0.1:8080', data=finalData, headers=headers)
-        self.wfile.write(type+','+myData+'\n')
+        self.wfile.write(data_type+','+myData+'\n')
         print "Body:   " + r.request.body
         print "Status: " + str(r.status_code)
         print "_--_"
@@ -89,6 +90,7 @@ class organizer:
         
         self.var = input_var
         
+        
         if input1 == '-song':
             self.printLibrary()
         elif input1 == '-reset':
@@ -114,7 +116,31 @@ class organizer:
             print message
             #self.writeOut("message", message)
             
-
+        
+    def web_interface(self):
+        
+        server_get = None
+        server_text = 'NONE'
+        
+        while True:
+            
+            if server_text == 'EXIT':
+                break
+            elif server_text != 'NONE':
+                if self.songs.get(server_text) != None:
+                    self.startPlaying(self.songs[server_text])
+                    server_text = 'NONE'
+                    server_put = requests.put(url='http://127.0.0.1:8080/song', data = 'NONE')
+            else:
+                server_get = requests.get(url='http://127.0.0.1:8080/song')
+                if server_get.status_code == 200:
+                    server_text = server_get.text
+                else:
+                    server_text = 'NONE'
+                
+               
+        self.wfile.close()
+        print 'done'
 
     def startPlaying(self, song):
         
@@ -228,6 +254,8 @@ class organizer:
             self.writeOut(str(counter), str(note)+','+str(found)+','+str(dynamic)+','+str(tempo)+'bps'+','+str(currentScore))
             sml.advanceSegment()
             counter += 1
+        
+        self.writeOut('finish', 'f')
         
         '''
         if os.getenv(self.var, 'CONT') == 'STOP':
