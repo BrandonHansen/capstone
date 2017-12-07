@@ -63,6 +63,8 @@ if __name__ == '__main__':
             'tools.CORS.on': True
         }
     }
+    
     cherrypy.config.update(conf)
     app = cherrypy.tree.mount(None, config=conf)
     cherrypy.quickstart(app)
+
