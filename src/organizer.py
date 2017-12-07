@@ -26,11 +26,16 @@ class organizer:
         self.songs = self.inl.getSongs()
         self.pitch = self.inl.getPitches()
 
-    def writeOut(self, type, data):
-        r = requests.put(url = "localhost:8080/", data = data)
-        self.wfile.write(type+','+data+'\n')
-        print r.text
-    
+    def writeOut(self, type, myData):
+        headers = {"Content-Type": "application/json"}
+        r = requests.put(url='http://127.0.0.1:8080', data=myData, headers=headers)
+        self.wfile.write(type+','+myData+'\n')
+        print "Body:   " + r.request.body
+        print "Status: " + str(r.status_code)
+        print "_--_"
+        r2 = requests.get(url='http://127.0.0.1:8080')
+        print "Data from GET: " + r2.text
+
     def printOptions(self):
         
         print "help > display this help list"

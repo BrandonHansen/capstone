@@ -1,4 +1,5 @@
 import cherrypy
+import json
 
 
 @cherrypy.expose
@@ -14,14 +15,16 @@ class MusicWebService(object):
         cherrypy.session['currentLine'] = some_string
         return some_string
 
-    def PUT(self, another_string):
-        cherrypy.session['currentLine'] = another_string
+    def PUT(self):
+        data = cherrypy.request.body.read()
+        cherrypy.session['currentLine'] = data
 
     def DELETE(self):
         cherrypy.session.pop('currentLine', None)
 
 
 if __name__ == '__main__':
+    
     conf = {
         '/': {
             'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
