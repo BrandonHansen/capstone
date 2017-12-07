@@ -16,6 +16,9 @@ function useForm() {
 	console.log("INSIDE");
 	// Read data from the form
 	var songName=getParameterByName('mySong');
+	var xhr_put = new XMLHttpRequest();
+	xhr_put.open("PUT","http://127.0.0.1:8080/song", true);
+	xhr_put.send();
 
 	// SEND SONG NAME TO SERVER
 
