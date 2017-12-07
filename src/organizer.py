@@ -122,25 +122,36 @@ class organizer:
         server_get = None
         server_text = 'NONE'
         
+        print '<organizer: loop start>'
         while True:
             
             if server_text == 'EXIT':
+                print '<exit>'
                 break
             elif server_text != 'NONE':
+                print '<song not NONE,', server_text, '>'
                 if self.songs.get(server_text) != None:
+                    print '<song in library, start play>'
                     self.startPlaying(self.songs[server_text])
                     server_text = 'NONE'
+                    print '<song reset ,', server_text, '>'
                     server_put = requests.put(url='http://127.0.0.1:8080/song', data = 'NONE')
+                    print '<reset put>'
             else:
+                print '<server get>'
                 server_get = requests.get(url='http://127.0.0.1:8080/song')
+                print '<server code,', server_get.status_code, '>'
                 if server_get.status_code == 200:
                     server_text = server_get.text
                 else:
                     server_text = 'NONE'
+                print '<song set,', server_text, '>'
+                
+            time.sleep(0.75)
                 
                
         self.wfile.close()
-        print 'done'
+        print '<done>'
 
     def startPlaying(self, song):
         
