@@ -26,34 +26,12 @@ class MusicWebService(object):
     def DELETE(self):
         self.dict.pop('currentLine', None)
 
-class Options:
-    def OPTIONS(self, *args, **kwargs):
-            return ""
-
-def CORS():
-    cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-    cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET, PUT, POST, DELETE, OPTIONS"
-    cherrypy.response.headers["Access-Control-Allow-Credentials"] = "true"
+    def CORS():
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+        cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET, PUT, POST, DELETE, OPTIONS"
+        cherrypy.response.headers["Access-Control-Allow-Credentials"] = "true"
 
 if __name__ == '__main__':
-    cherrypy.tools.CORS = cherrypy.Tool('before_finalize', CORS)
-    music = MusicWebService()
-    optionsController = Options()
-    dispatcher = cherrypy.dispatch.RoutesDispatcher()
-
-    #GET
-    dispatcher.connect('get_vals', '/',controller=music,action = 'GET',conditions=dict(method=['GET']))
-    dispatcher.connect('get_song', '/song/',controller=music,action = 'GET',conditions=dict(method=['GET']))
-
-    #PUT
-    dispatcher.connect('put_vals','/',controller=music,action = 'PUT',conditions=dict(method=['PUT']))
-    dispatcher.connect('put_song','/song/',controller=music,action = 'PUT',conditions=dict(method=['PUT']))
-
-
-    ###### OPTIONS #####
-    dispatcher.connect('options_root', '/', controller=optionsController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
-    dispatcher.connect('options_song', '/song/', controller=optionsController, action = 'OPTIONS', conditions=dict(method=['OPTIONS']))
-
     conf = {
         '/': {
             'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
@@ -63,8 +41,8 @@ if __name__ == '__main__':
             'tools.CORS.on': True
         }
     }
-    
+    cherrypy.tools.CORS = cherrypy.Tool('before_finalize', CORS)
     cherrypy.config.update(conf)
-    app = cherrypy.tree.mount(None, config=conf)
-    cherrypy.quickstart(app)
+    cherrypy.quickstart(MusicWebService(), '/', conf)
+    cherrypy.quickstart(MusicWebService(), '/song', conf)
 
