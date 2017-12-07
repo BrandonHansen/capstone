@@ -43,3 +43,4 @@ if __name__ == '__main__':
         }
     }
     cherrypy.quickstart(MusicWebService(), '/', conf)
+    cherrypy.quickstart(MusicWebService(), '/song', conf)
