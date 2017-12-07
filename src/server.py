@@ -6,21 +6,30 @@ import json
 class MusicWebService(object):
 
     @cherrypy.tools.accept(media='text/plain')
+    
+    def __init__(self):
+        self.dict = {'currentLine' : 0}
 
     def GET(self):
-        return cherrypy.session['currentLine']
+        print "GET REQUEST"
+        for key in self.dict:
+            print "Key: " + key + ", Value: " + self.dict[key]
+        return self.dict['currentLine']
 
     def POST(self):
         some_string = 'Initial'
-        cherrypy.session['currentLine'] = some_string
+        self.dict['currentLine'] = some_string
         return some_string
 
     def PUT(self):
         data = cherrypy.request.body.read()
-        cherrypy.session['currentLine'] = data
+        print "Data from server" + str(data)
+        self.dict['currentLine'] = str(data)
+        for key in self.dict:
+            print "Key: " + key + ", Value: " + self.dict[key]
 
     def DELETE(self):
-        cherrypy.session.pop('currentLine', None)
+        self.dict.pop('currentLine', None)
 
 
 if __name__ == '__main__':
