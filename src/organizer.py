@@ -27,8 +27,9 @@ class organizer:
         self.pitch = self.inl.getPitches()
 
     def writeOut(self, type, myData):
+        finalData = str(type) + "," + str(myData)
         headers = {"Content-Type": "application/json"}
-        r = requests.put(url='http://127.0.0.1:8080', data=myData, headers=headers)
+        r = requests.put(url='http://127.0.0.1:8080', data=finalData, headers=headers)
         self.wfile.write(type+','+myData+'\n')
         print "Body:   " + r.request.body
         print "Status: " + str(r.status_code)

@@ -5,6 +5,7 @@ import json
 
 @cherrypy.expose
 class MusicWebService(object):
+    exposed = True
 
     @cherrypy.tools.accept(media='text/plain')
     
@@ -26,10 +27,10 @@ class MusicWebService(object):
     def DELETE(self):
         self.dict.pop('currentLine', None)
 
-    def CORS():
-        cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
-        cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET, PUT, POST, DELETE, OPTIONS"
-        cherrypy.response.headers["Access-Control-Allow-Credentials"] = "true"
+def CORS():
+    cherrypy.response.headers["Access-Control-Allow-Origin"] = "*"
+    cherrypy.response.headers["Access-Control-Allow-Methods"] = "GET, PUT, POST, DELETE, OPTIONS"
+    cherrypy.response.headers["Access-Control-Allow-Credentials"] = "true"
 
 if __name__ == '__main__':
     conf = {
