@@ -30,7 +30,7 @@ function useForm() {
 
 		// SEND GET TO SERVER
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "127.0.0.1:8080/", true);
+		xhr.open("GET", "http://127.0.0.1:8080/", true);
 		xhr.onload = function() {
 			console.log(xhr.responseText)
 			pieces = $.csv.toArrays(xhr.responseText)
