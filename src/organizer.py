@@ -233,12 +233,12 @@ class organizer:
             #self.writeOut("note_play", str(note))
             current = time.clock()
             tracker = time.clock()
-            count = tempo
-            sys.stdout.write(str(count)+" ")
+            count = tempo*10
+            sys.stdout.write(str(count*10)+" ")
             sys.stdout.flush()
             while ((time.clock() - current)*10 < tempo) and (not listy) and (os.getenv(self.var, 'CONT') != 'STOP'):
                 
-                if (time.clock() - tracker)*10 > 1:    
+                if (time.clock() - tracker)*10 > 0.1:    
                     tracker = time.clock()
                     count -= 1
                     message = str(count)
@@ -264,7 +264,7 @@ class organizer:
             currentScore = anl.scoreSong()
             print ''
             print "<"+str(found)+" heard, current score "+str(currentScore)+"% >"
-            self.writeOut(str(counter), str(note)+','+str(found)+','+str(dynamic)+','+str(tempo*60)+' bpm'+','+str(currentScore))
+            self.writeOut(str(counter), str(note)+','+str(found)+','+str(dynamic)+','+str((1/tempo)*60)+' bpm'+','+str(currentScore))
             sml.advanceSegment()
             counter += 1
         
