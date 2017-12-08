@@ -230,6 +230,8 @@ class organizer:
         temp_found = 'Rest'
 
         counter = 1
+        
+        currentScore = 0
 
         for note in notes:
             print "<play note "+str(note)+" >"
@@ -269,6 +271,7 @@ class organizer:
             dynamic = int(dub[1])
             anl.addAnalysis(found)
             currentScore = anl.scoreSong()
+            print 'current', currentScore
             #print ''
             #print "<"+str(found)+" heard, current score "+str(currentScore)+"% >"
             if str(note) == 'None':
