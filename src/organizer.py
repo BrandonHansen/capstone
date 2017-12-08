@@ -264,7 +264,7 @@ class organizer:
             currentScore = anl.scoreSong()
             print ''
             print "<"+str(found)+" heard, current score "+str(currentScore)+"% >"
-            self.writeOut(str(counter), str(note)+','+str(found)+','+str(dynamic)+','+str(tempo)+'bps'+','+str(currentScore))
+            self.writeOut(str(counter), str(note)+','+str(found)+','+str(dynamic)+','+str(tempo*60)+' bpm'+','+str(currentScore))
             sml.advanceSegment()
             counter += 1
         
