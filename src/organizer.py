@@ -128,15 +128,15 @@ class organizer:
             if server_text == 'EXIT':
                 print '<exit>'
                 break
-            elif server_text != 'NONE':
+            elif server_text != 'NONE' and server_text != '':
                 print '<song not NONE,', server_text, '>'
                 if self.songs.get(server_text) != None:
                     print '<song in library, start play>'
                     self.startPlaying(self.songs[server_text])
-                    server_text = 'NONE'
                     print '<song reset ,', server_text, '>'
-                    server_put = requests.put(url='http://127.0.0.1:8080/song', data = 'NONE')
-                    print '<reset put>'
+                server_text = 'NONE'
+                server_put = requests.put(url='http://127.0.0.1:8080/song', data = 'NONE')
+                print '<reset put>'
                     
             else:
                 print '<server get>'
