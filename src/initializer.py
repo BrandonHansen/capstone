@@ -53,7 +53,7 @@ class initializer:
             input = f.readline()
             while input == "\n":
                 input = f.readline()
-            tempo = input.replace("\n", "").replace("\r", "")
+            tempo = float(input.replace("\n", "").replace("\r", ""))
         
             notes = []
         
