@@ -57,15 +57,15 @@ function useForm() {
 				$table.deleteRow(-1); // Deletes loading bar
 				contentAdded=1;
 			}
-			console.log(Number(pieces[0][0]));
+			//console.log(Number(pieces[0][0]));
 			if ((pieces[0] != "") && (Number(pieces[0][0]) != Number(noteNum)) && (done==0)) {
 				var row=$table.insertRow(-1);
 				var cell1=row.insertCell(0);
 				cell1.innerHTML=pieces[0][0];
 				var cell2=row.insertCell(1);
-				cell2.innerHTML=pieces[0][1];
+				cell2.innerHTML=pieces[0][2];
 				var cell3=row.insertCell(2);
-				cell3.innerHTML=pieces[0][2];
+				cell3.innerHTML=pieces[0][1];
 				var cell4=row.insertCell(3);
 				cell4.innerHTML=pieces[0][3];
 				var cell5=row.insertCell(4);
@@ -73,8 +73,9 @@ function useForm() {
 				var cell6=row.insertCell(5);
 				cell6.innerHTML=pieces[0][5];
 				noteNumber=noteNumber+1;
-				console.log(noteNumber);
-				console.log(Number(pieces[0][0]));
+				//console.log(noteNumber);
+				//console.log(Number(pieces[0][0]));
+				window.scrollTo(0,document.body.scrollHeight);
 			}
 		};
 		xhr.send();
