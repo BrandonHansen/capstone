@@ -13,6 +13,9 @@ class analyzer:
         self.expected = song
         self.pitches = pitches
     
+    def resetAnalyzer(self):
+        actual = []
+    
     def analyzeSegment(self, segment):
         presence_score = 1
         loudness_score = 1

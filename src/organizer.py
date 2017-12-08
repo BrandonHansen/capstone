@@ -248,7 +248,7 @@ class organizer:
                     sys.stdout.write(message+" ")
                     sys.stdout.flush()
                     #self.writeOut("count", message)           
-
+                print ''
                 # Read raw microphone data
                 rawsamps = stream.read(1024, exception_on_overflow = False)
                 # Convert raw data to NumPy array
@@ -282,6 +282,7 @@ class organizer:
         self.writeOut(str(counter), 'f')
         headers = {"Content-Type": "application/json"}
         r=requests.put(url='http://127.0.0.1:8080',data='',headers=headers);
+        anl.resetAnalyzer()
         
         '''
         if os.getenv(self.var, 'CONT') == 'STOP':
