@@ -137,6 +137,7 @@ class organizer:
                     print '<song reset ,', server_text, '>'
                     server_put = requests.put(url='http://127.0.0.1:8080/song', data = 'NONE')
                     print '<reset put>'
+                    
             else:
                 print '<server get>'
                 server_get = requests.get(url='http://127.0.0.1:8080/song')
