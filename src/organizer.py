@@ -226,6 +226,9 @@ class organizer:
             return
     
 
+        temp_note = 'Rest'
+        temp_found = 'Rest'
+
         counter = 1
 
         for note in notes:
@@ -236,7 +239,7 @@ class organizer:
             count = tempo*10
             sys.stdout.write(str(count*10)+" ")
             sys.stdout.flush()
-            while ((time.clock() - current)*10 < tempo) and (not listy) and (os.getenv(self.var, 'CONT') != 'STOP'):
+            while ((time.clock() - current)*10 < tempo) and (not listy):
                 
                 if (time.clock() - tracker)*10 > 0.1:    
                     tracker = time.clock()
@@ -259,12 +262,20 @@ class organizer:
             sys.stdout.flush()
             dub  = anl.analyzeSegment(sml.getCurrentSegment())
             found = dub[0]
+            if found == None:
+                temp_found = 'Rest'
+            else:
+                temp_found = found
             dynamic = int(dub[1])
             anl.addAnalysis(found)
             currentScore = anl.scoreSong()
             #print ''
             #print "<"+str(found)+" heard, current score "+str(currentScore)+"% >"
-            self.writeOut(str(counter), str(note)+','+str(found)+','+str(dynamic)+','+str((1/tempo)*60)+' bpm'+','+str(currentScore))
+            if str(note) == 'None':
+                temp_note = 'Rest'
+            else:
+                temp_note = note
+            self.writeOut(str(counter), str(temp_note)+','+str(temp_found)+','+str(dynamic)+','+str((1/tempo)*60)+' bpm'+','+str(currentScore))
             sml.advanceSegment()
             counter += 1
         
