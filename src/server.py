@@ -52,6 +52,6 @@ if __name__ == '__main__':
     }
     cherrypy.tools.CORS = cherrypy.Tool('before_finalize', CORS)
     cherrypy.config.update(conf)
-    cherrypy.quickstart(MusicWebService(), '/', conf)
+    cherrypy.tree.mount(MusicWebService(), '/', conf)
     cherrypy.quickstart(MusicWebService(), '/song', conf)
 
