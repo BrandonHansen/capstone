@@ -36,7 +36,7 @@ class organizer:
         #print "Status: " + str(r.status_code)
         #print "_--_"
         r2 = requests.get(url='http://127.0.0.1:8080')
-        print "Data from GET: " + r2.text
+        #print "Data from GET: " + r2.text
 
     def printOptions(self):
         
@@ -236,8 +236,8 @@ class organizer:
             #self.writeOut("note_play", str(note))
             current = time.clock()
             tracker = time.clock()
-            count = tempo*10
-            sys.stdout.write(str(count*10)+" ")
+            count = 5
+            sys.stdout.write(str(count)+" ")
             sys.stdout.flush()
             while ((time.clock() - current)*10 < tempo) and (not listy):
                 
