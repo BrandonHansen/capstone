@@ -1335,3 +1335,14 @@ finish,f
 28,D,None,0,2.0bps,3
 29,C,None,0,2.0bps,3
 30,f
+1,E,None,0,2.0bps,0
+2,E,None,0,2.0bps,0
+1,A,None,0,1.0bps,0
+2,B,None,0,1.0bps,0
+3,C,None,0,1.0bps,0
+4,C#,None,0,1.0bps,0
+5,D,None,0,1.0bps,0
+6,E,None,0,1.0bps,0
+7,F,None,0,1.0bps,0
+8,G,None,0,1.0bps,0
+9,f
