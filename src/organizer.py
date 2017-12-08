@@ -247,8 +247,7 @@ class organizer:
                     message = str(int(count))
                     sys.stdout.write(message+" ")
                     sys.stdout.flush()
-                    #self.writeOut("count", message)           
-                print ''
+                    #self.writeOut("count", message)        
                 # Read raw microphone data
                 rawsamps = stream.read(1024, exception_on_overflow = False)
                 # Convert raw data to NumPy array
@@ -258,7 +257,8 @@ class organizer:
                 pitch = analyse.musical_detect_pitch(samps)
                 #print (volume)*-1, pitch
                 sml.appendSegment(pitch, (volume)*-1)
-                
+               
+            print ''
             sys.stdout.flush()
             dub  = anl.analyzeSegment(sml.getCurrentSegment())
             found = dub[0]
