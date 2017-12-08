@@ -9,10 +9,10 @@ pyaud = pyaudio.PyAudio()
 index = 0
 
 for i in range(pyaud.get_device_count()):
-  dev = pyaud.get_device_info_by_index(i)
-  if dev['name'] == 'USB PnP Sound Device: Audio (hw:1,0)':
-     index = i
-     break
+    dev = pyaud.get_device_info_by_index(i)
+    if dev['name'] == 'USB PnP Sound Device: Audio (hw:1,0)':
+        index = i
+        break
   #print((i,dev['name'],dev['maxInputChannels']))
 
 
@@ -38,4 +38,4 @@ while True:
     print vol_sample, pitch_sample
     if pitch_sample != None:
         pitch_array.append(pitch_sample)
-    print avg(pitch_array)
+    
