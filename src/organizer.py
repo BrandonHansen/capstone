@@ -148,6 +148,7 @@ class organizer:
                     server_text = 'NONE'
                 print '<song set,', server_text, '>'
                 
+            print ''
             time.sleep(0.75)
                 
                
@@ -267,7 +268,7 @@ class organizer:
             sml.advanceSegment()
             counter += 1
         
-        self.writeOut('finish', 'f')
+        self.writeOut(str(counter), 'f')
         
         '''
         if os.getenv(self.var, 'CONT') == 'STOP':
