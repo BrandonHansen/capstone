@@ -278,6 +278,7 @@ class organizer:
             print message
             os.environ[self.var] = ''
         '''
+        
         if listy:
             message = "<song interrupted>"
             print message
