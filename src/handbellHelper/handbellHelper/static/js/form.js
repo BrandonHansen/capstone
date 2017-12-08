@@ -19,7 +19,9 @@ function useForm() {
 	var xhr_put = new XMLHttpRequest();
 	xhr_put.open("PUT","http://127.0.0.1:8080/song", true);
 	xhr_put.send(songName);
-
+	xhr_put.onload=function(){
+		console.log("success");
+	}
 	// SEND SONG NAME TO SERVER
 
 	// Show results on the screen
@@ -35,8 +37,8 @@ function useForm() {
 		} else if (contentAdded == 1) {
 			var noteNum=$table.rows[$table.rows.length-1].cells[0].innerHTML;
 		}
-		console.log("_______________________");
-		console.log(noteNum);
+		//console.log("_______________________");
+		//console.log(noteNum);
 		var pieces = "";
 		var prevNoteNumber = 0;
 
@@ -46,7 +48,7 @@ function useForm() {
 		xhr.onload = function() {
 			//console.log(xhr.responseText);
 			pieces = $.csv.toArrays(xhr.responseText);
-			console.log(String(pieces[0][0]));
+			//console.log(String(pieces[0][0]));
 			if ((pieces[0] != "") && (String(pieces[0][1]) == "f")) {
 				clearInterval(myInterval); // Stop myTimer()
 				done=1;
