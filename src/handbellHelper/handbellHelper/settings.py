@@ -26,7 +26,7 @@ SECRET_KEY = 'n*9ql_%!6g5!90znrmi7tz7*951d$0w8y4l#m=p7w2n^9$aa7$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost","10.13.49.90"]
+ALLOWED_HOSTS = ["localhost","10.13.49.90","localhost:8080","localhost:8080/song"]
 
 
 # Application definition

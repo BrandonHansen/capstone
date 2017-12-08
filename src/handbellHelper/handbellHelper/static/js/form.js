@@ -24,39 +24,55 @@ function useForm() {
 
 	// Show results on the screen
 	var $table=document.getElementById('song-table');
-	var myInterval = setInterval(myTimer,100);
+	var myInterval = setInterval(myTimer,200);
+	var contentAdded = 0;
+	var noteNumber=0;
+	var done=0;
 	function myTimer() {
 		var tableLen=$table.rows.length;
-		var noteNum=$table.rows[$table.rows.length-1].cells[0].childNodes[0].value;
-		var pieces = ""
-		var prevNoteNumber = 0
+		if (contentAdded == 0) {
+			var noteNum=$table.rows[$table.rows.length-1].cells[0].childNodes[0].value;
+		} else if (contentAdded == 1) {
+			var noteNum=$table.rows[$table.rows.length-1].cells[0].innerHTML;
+		}
+		console.log("_______________________");
+		console.log(noteNum);
+		var pieces = "";
+		var prevNoteNumber = 0;
 
 		// SEND GET TO SERVER
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", "http://127.0.0.1:8080/", true);
 		xhr.onload = function() {
-			console.log(xhr.responseText)
-			pieces = $.csv.toArrays(xhr.responseText)
-			if ((pieces != "") && (pieces[0] == "f")) {
+			//console.log(xhr.responseText);
+			pieces = $.csv.toArrays(xhr.responseText);
+			console.log(String(pieces[0][0]));
+			if ((pieces[0] != "") && (String(pieces[0][1]) == "f")) {
 				clearInterval(myInterval); // Stop myTimer()
+				done=1;
 			}
-			if ((pieces != "") && (pieces[0] == "1") && (noteNum != "1")) {
+			if ((pieces[0] != "") && (String(pieces[0][0]) == "1") && (noteNum != "1")) {
 				$table.deleteRow(-1); // Deletes loading bar
+				contentAdded=1;
 			}
-			if ((pieces != "") && (noteNum != pieces[0])) {
+			console.log(Number(pieces[0][0]));
+			if ((pieces[0] != "") && (Number(pieces[0][0]) != Number(noteNum)) && (done==0)) {
 				var row=$table.insertRow(-1);
 				var cell1=row.insertCell(0);
-				cell1.innerHTML=pieces[0];
+				cell1.innerHTML=pieces[0][0];
 				var cell2=row.insertCell(1);
-				cell2.innerHTML=pieces[1];
+				cell2.innerHTML=pieces[0][1];
 				var cell3=row.insertCell(2);
-				cell3.innerHTML=pieces[2];
+				cell3.innerHTML=pieces[0][2];
 				var cell4=row.insertCell(3);
-				cell4.innerHTML=pieces[3];
+				cell4.innerHTML=pieces[0][3];
 				var cell5=row.insertCell(4);
-				cell5.innerHTML=pieces[4];
+				cell5.innerHTML=pieces[0][4];
 				var cell6=row.insertCell(5);
-				cell6.innerHTML=pieces[5];
+				cell6.innerHTML=pieces[0][5];
+				noteNumber=noteNumber+1;
+				console.log(noteNumber);
+				console.log(Number(pieces[0][0]));
 			}
 		};
 		xhr.send();
