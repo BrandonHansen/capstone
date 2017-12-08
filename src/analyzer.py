@@ -65,6 +65,7 @@ class analyzer:
         while count < total:
             print "test --", self.expected[count], self.actual[count]
             if self.expected[count] == self.actual[count]:
+                print 'points rewarded'
                 score += 1.0
             count += 1
         
