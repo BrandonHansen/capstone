@@ -1794,3 +1794,33 @@ finish,f
 28,D,Rest,0,120.0 bpm,17
 29,C,Rest,0,120.0 bpm,17
 30,f
+1,E,Rest,0,120.0 bpm,0
+2,E,Rest,0,120.0 bpm,0
+3,E,Rest,0,120.0 bpm,0
+4,Rest,Rest,0,120.0 bpm,25
+5,E,Rest,0,120.0 bpm,20
+6,E,Rest,0,120.0 bpm,16
+7,E,Rest,0,120.0 bpm,14
+8,Rest,Rest,0,120.0 bpm,25
+9,E,Rest,0,120.0 bpm,22
+10,G,Rest,0,120.0 bpm,20
+11,C,Rest,0,120.0 bpm,18
+12,D,Rest,0,120.0 bpm,16
+13,E,Rest,0,120.0 bpm,15
+14,Rest,Rest,0,120.0 bpm,21
+15,Rest,Rest,0,120.0 bpm,26
+16,Rest,Rest,0,120.0 bpm,31
+17,F,Rest,0,120.0 bpm,29
+18,F,Rest,0,120.0 bpm,27
+19,F,Rest,0,120.0 bpm,26
+20,F,Rest,0,120.0 bpm,25
+21,F,Rest,0,120.0 bpm,23
+22,E,Rest,0,120.0 bpm,22
+23,E,Rest,0,120.0 bpm,21
+24,E,Rest,0,120.0 bpm,20
+25,G,Rest,0,120.0 bpm,20
+26,G,Rest,0,120.0 bpm,19
+27,F,Rest,0,120.0 bpm,18
+28,D,Rest,0,120.0 bpm,17
+29,C,Rest,0,120.0 bpm,17
+30,f
