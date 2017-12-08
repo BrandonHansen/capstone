@@ -269,6 +269,8 @@ class organizer:
             counter += 1
         
         self.writeOut(str(counter), 'f')
+        headers = {"Content-Type": "application/json"}
+        r=requests.put(url='http://127.0.0.1:8080',data='',headers=headers);
         
         '''
         if os.getenv(self.var, 'CONT') == 'STOP':
